@@ -27,7 +27,7 @@ const credentials = require("./credentials.json");
 
   client.on('ready', () => console.log(`Logged in as ${client.user.username}#${client.user.discriminator}`));
 
-  client.on('message', msg => {
+  client.on('message', async msg => {
     if(msg.channel.id !== process.env.CHANNEL_ID) return;
     if(!msg.content.startsWith('-')) return;
     const suggestion = msg.content.substring(1);
@@ -40,7 +40,7 @@ const credentials = require("./credentials.json");
         values: [[msg.author.id, `${msg.author.username}#${msg.author.discriminator}`, new Date(msg.createdTimestamp), false, suggestion]],
       },
     });
-    msg.react(`💾`);
+    await msg.react(`💾`);
   })
 
   client.login(process.env.TOKEN);
